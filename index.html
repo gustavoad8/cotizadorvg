@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cotización - Kids Decor Colombia</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="cotizacion-container">
+        <header>
+            <div class="header-left">
+                <h1>Kids Decor Colombia</h1>
+                <p>NIT: 1067854425-6</p>
+                <h2>Cotización</h2>
+                <p>&nbsp;</p>
+                <p>Fecha: <span id="fecha"></span></p>
+                <p>Consecutivo: <span id="consecutivo"></span></p>
+                <p>&nbsp;</p>
+                <p>Cliente: <span id="nombreCliente">Nombre</span></p>
+                <p>Email: <span id="emailCliente">email@email.com</span></p>
+                <p>Teléfono: <span id="telefonoCliente">3000000000</span></p>
+            </div>
+            <div class="header-right">
+                <img src="logo.png" alt="Logo" class="logo">
+            </div>
+        </header>
+
+        <form id="formularioProducto">
+            <label for="cliente">Cliente:</label>
+            <input type="text" id="cliente" name="cliente">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email">
+            <label for="telefono">Teléfono:</label>
+            <input type="tel" id="telefono" name="telefono">
+        </form>
+
+<form id="formularioProducto">
+            <label for="producto">Producto:</label>
+            <input type="text" id="producto" name="producto">
+            <label for="cantidad">Cantidad:</label>
+            <input type="number" id="cantidad" name="cantidad">
+            <label for="precio">Precio:</label>
+            <input type="number" id="precio" name="precio">
+            <button type="button" id="agregarProducto">Agregar Producto</button>
+        </form>
+
+        <section>
+            <h3>Cotización Actual</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Descripción</th>
+                        <th>Cant.</th>
+                        <th>Precio</th>
+                        <th>Total</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="listaProductos"></tbody>
+            </table>
+            <div class="totales">
+                <p>Subtotal (25-30 días): <span id="subtotal">$0</span></p>
+                <p>Envío (10-15 días): <span id="envio">$0</span></p>
+                <p>Total: <span id="total">$0</span></p>
+            </div>
+        </section>
+
+        <section class="observaciones">
+            <h3>Observaciones:</h3>
+            <textarea id="observaciones" rows="4" cols="50"></textarea>
+        </section>
+
+        <div class="franja-color"></div>
+
+        <section class="datos-bancarios">
+            <h3>Datos Bancarios</h3>
+            <p>Gustavo Alberto Acosta Diaz</p>
+            <p>C.C. 1.067.854.425</p>
+            <p>Bancolombia - Cta. Ahorros #09112958093</p>
+            <p>Davivienda - Cta. Corriente #156960000388</p>
+        </section>
+
+        <footer>
+        <section class="datos-bancarios">
+            <p>Kids Decor Colombia - Hecho con amor</p>
+            <p>Cra 2 #45-07, Montería</p>
+            <p>Teléfono: 305 4585404</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
