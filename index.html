@@ -58,16 +58,16 @@
                     </tr>
                 </thead>
                 <tbody id="listaProductos"></tbody>
-                        </table>
-<div class="totales">
-    <p>Subtotal: <span id="subtotal">$0</span></p>
-    <p>Envío: <span id="envioDisplay">$0</span></p> <!-- Nueva línea para mostrar el valor de envío -->
-    <div class="no-print">
-        <p>Ingresar Envío: <input type="number" id="envioInput" value="0">
-        <button type="button" id="actualizarEnvio">Actualizar Envío</button></p>
-    </div>
-    <p class="total">Total: <span id="total">$0</span></p>
-</div>
+            </table>
+            <div class="totales">
+                <p>Subtotal: <span id="subtotal">$0</span></p>
+                <p>Envío: <span id="envioDisplay">$0</span></p> <!-- Nueva línea para mostrar el valor de envío -->
+                <div class="no-print">
+                    <p>Ingresar Envío: <input type="number" id="envioInput" value="0">
+                    <button type="button" id="actualizarEnvio">Actualizar Envío</button></p>
+                </div>
+                <p class="total">Total: <span id="total">$0</span></p>
+            </div>
         </section>
 
         <section class="observaciones">
@@ -94,6 +94,22 @@
         </footer>
     </div>
 
+    <!-- Aquí va tu script -->
     <script src="script.js"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const nombreCliente = document.getElementById('nombreCliente');
+        const emailCliente = document.getElementById('emailCliente');
+        const telefonoCliente = document.getElementById('telefonoCliente');
+
+        const formularioCliente = document.getElementById('formularioCliente');
+        
+        formularioCliente.addEventListener('input', () => {
+            nombreCliente.textContent = document.getElementById('cliente').value;
+            emailCliente.textContent = document.getElementById('email').value;
+            telefonoCliente.textContent = document.getElementById('telefono').value;
+        });
+    });
+    </script>
 </body>
 </html>
