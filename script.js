@@ -24,7 +24,7 @@ function agregarProducto() {
         deleteButton.textContent = 'Eliminar';
         deleteButton.className = 'eliminar';
         deleteButton.addEventListener('click', function() {
-            table.deleteRow(newRow.rowIndex - 1);
+            table.deleteRow(newRow.rowIndex);
             actualizarTotales();
         });
         cell5.appendChild(deleteButton);
@@ -46,7 +46,7 @@ function actualizarTotales() {
         subtotal += total;
     }
 
-    const envio = parseFloat(document.getElementById('envio').value);
+    const envio = parseFloat(document.getElementById('envioInput').value);
     const total = subtotal + envio;
 
     document.getElementById('total').textContent = `$${formatNumber(total)}`;
