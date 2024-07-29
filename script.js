@@ -15,12 +15,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.getElementById('agregarProducto').addEventListener('click', () => {
         const producto = document.getElementById('producto').value;
-        const cantidad = parseFloat(document.getElementById('cantidad').value);
+        const cantidad = parseInt(document.getElementById('cantidad').value, 10);
         const precio = parseFloat(document.getElementById('precio').value);
 
         if (producto && cantidad && precio) {
             const total = cantidad * precio;
-            productos.push({ producto, cantidad, precio, total });
+            productos.push({ producto, cantidad, precio, total: Math.round(total) });
             actualizarListaProductos();
         }
     });
@@ -53,8 +53,8 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     function actualizarTotal() {
-        const envio = parseFloat(envioInput.value) || 0;
-        const subtotal = parseFloat(subtotalElement.textContent.replace('$', '').replace(/\./g, '')) || 0;
+        const envio = parseInt(envioInput.value, 10) || 0;
+        const subtotal = parseInt(subtotalElement.textContent.replace('$', '').replace(/\./g, ''), 10) || 0;
         const total = subtotal + envio;
         envioDisplay.textContent = `$${formatearNumero(envio)}`;
         totalElement.textContent = `$${formatearNumero(total)}`;
