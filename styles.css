@@ -1,3 +1,9 @@
+@media print {
+    .no-print {
+        display: none;
+    }
+}
+
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -170,18 +176,6 @@ footer {
         max-width: 800px;
     }
     th:last-child, td:last-child {
-        display: none;
-    }
-}
-
-.color-section {
-    background-color: #d1f0f0;
-    height: 40vh;
-    margin: 20px 0;
-}
-
-@media print {
-    .no-print {
         display: none;
     }
 }
