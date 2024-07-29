@@ -45,11 +45,9 @@ function actualizarTotales() {
         subtotal += total;
     }
 
-    const envio = subtotal * 0.15;
+    const envio = parseFloat(document.getElementById('envio').value);
     const total = subtotal + envio;
 
-    document.getElementById('subtotal').textContent = `$${formatNumber(subtotal)}`;
-    document.getElementById('envio').textContent = `$${formatNumber(envio)}`;
     document.getElementById('total').textContent = `$${formatNumber(total)}`;
 }
 
