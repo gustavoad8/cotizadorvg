@@ -1,79 +1,55 @@
-document.getElementById('agregarProducto').addEventListener('click', agregarProducto);
-document.getElementById('actualizarEnvio').addEventListener('click', actualizarEnvio);
+document.addEventListener('DOMContentLoaded', () => {
+    const listaProductos = document.getElementById('listaProductos');
+    const subtotalElement = document.getElementById('subtotal');
+    const totalElement = document.getElementById('total');
+    const envioInput = document.getElementById('envioInput');
+    const actualizarEnvioButton = document.getElementById('actualizarEnvio');
 
-function agregarProducto() {
-    const producto = document.getElementById('producto').value;
-    const cantidad = parseInt(document.getElementById('cantidad').value);
-    const precio = parseFloat(document.getElementById('precio').value);
+    const productos = []; // Array para almacenar productos
 
-    if (producto && cantidad > 0 && precio > 0) {
-        const table = document.getElementById('listaProductos');
-        const newRow = table.insertRow();
+    document.getElementById('agregarProducto').addEventListener('click', () => {
+        const producto = document.getElementById('producto').value;
+        const cantidad = parseFloat(document.getElementById('cantidad').value);
+        const precio = parseFloat(document.getElementById('precio').value);
 
-        const cell1 = newRow.insertCell(0);
-        const cell2 = newRow.insertCell(1);
-        const cell3 = newRow.insertCell(2);
-        const cell4 = newRow.insertCell(3);
-        const cell5 = newRow.insertCell(4);
+        if (producto && cantidad && precio) {
+            const total = cantidad * precio;
+            productos.push({ producto, cantidad, precio, total });
+            actualizarListaProductos();
+        }
+    });
 
-        cell1.textContent = producto;
-        cell2.textContent = cantidad;
-        cell3.textContent = `$${formatNumber(precio)}`;
-        cell4.textContent = `$${formatNumber(cantidad * precio)}`;
-        const deleteButton = document.createElement('button');
-        deleteButton.textContent = 'Eliminar';
-        deleteButton.className = 'eliminar';
-        deleteButton.addEventListener('click', function() {
-            table.deleteRow(newRow.rowIndex);
-            actualizarTotales();
+    function actualizarListaProductos() {
+        listaProductos.innerHTML = ''; // Limpiar tabla
+        let subtotal = 0;
+
+        productos.forEach((prod, index) => {
+            subtotal += prod.total;
+            listaProductos.innerHTML += `
+                <tr>
+                    <td>${prod.producto}</td>
+                    <td>${prod.cantidad}</td>
+                    <td>${prod.precio.toFixed(2)}</td>
+                    <td>${prod.total.toFixed(2)}</td>
+                    <td><button onclick="eliminarProducto(${index})">Eliminar</button></td>
+                </tr>
+            `;
         });
-        cell5.appendChild(deleteButton);
 
-        actualizarTotales();
-        document.getElementById('formularioProducto').reset();
-    } else {
-        alert('Por favor, completa todos los campos con valores válidos.');
-    }
-}
-
-function actualizarTotales() {
-    const table = document.getElementById('listaProductos');
-    let subtotal = 0;
-
-    for (let i = 0; i < table.rows.length; i++) {
-        const row = table.rows[i];
-        const total = parseFloat(row.cells[3].textContent.replace(/\./g, '').replace(',', '.').replace('$', ''));
-        subtotal += total;
+        subtotalElement.textContent = `$${subtotal.toFixed(2)}`;
+        actualizarTotal();
     }
 
-    const envio = parseFloat(document.getElementById('envioInput').value);
-    const total = subtotal + envio;
+    window.eliminarProducto = function(index) {
+        productos.splice(index, 1);
+        actualizarListaProductos();
+    };
 
-    document.getElementById('total').textContent = `$${formatNumber(total)}`;
-}
+    function actualizarTotal() {
+        const envio = parseFloat(envioInput.value) || 0;
+        const subtotal = parseFloat(subtotalElement.textContent.replace('$', '')) || 0;
+        totalElement.textContent = `$${(subtotal + envio).toFixed(2)}`;
+    }
 
-function actualizarEnvio() {
-    actualizarTotales();
-}
-
-function formatNumber(number) {
-    return number.toLocaleString('es-CO', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
-}
-
-document.getElementById('formularioProducto').addEventListener('input', function() {
-    document.getElementById('nombreCliente').textContent = document.getElementById('cliente').value;
-    document.getElementById('emailCliente').textContent = document.getElementById('email').value;
-    document.getElementById('telefonoCliente').textContent = document.getElementById('telefono').value;
+    actualizarEnvioButton.addEventListener('click', actualizarTotal);
 });
-
-function generarConsecutivo() {
-    return Math.floor(Math.random() * 901) + 100;
-}
-
-function actualizarFechaYConsecutivo() {
-    const fecha = new Date().toLocaleDateString();
-    document.getElementById('fecha').textContent = fecha;
-    document.getElementById('consecutivo').textContent = generarConsecutivo();
-}
-
-document.addEventListener('DOMContentLoaded', actualizarFechaYConsecutivo);
