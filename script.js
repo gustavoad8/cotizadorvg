@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const subtotalElement = document.getElementById('subtotal');
     const totalElement = document.getElementById('total');
     const envioInput = document.getElementById('envioInput');
+    const envioDisplay = document.getElementById('envioDisplay'); // Referencia al nuevo campo
     const actualizarEnvioButton = document.getElementById('actualizarEnvio');
 
     const productos = []; // Array para almacenar productos
@@ -48,6 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function actualizarTotal() {
         const envio = parseFloat(envioInput.value) || 0;
         const subtotal = parseFloat(subtotalElement.textContent.replace('$', '')) || 0;
+        envioDisplay.textContent = `$${envio.toFixed(2)}`; // Actualizar el valor mostrado de envío
         totalElement.textContent = `$${(subtotal + envio).toFixed(2)}`;
     }
 
