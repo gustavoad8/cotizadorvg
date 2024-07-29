@@ -1,4 +1,5 @@
 document.getElementById('agregarProducto').addEventListener('click', agregarProducto);
+document.getElementById('actualizarEnvio').addEventListener('click', actualizarEnvio);
 
 function agregarProducto() {
     const producto = document.getElementById('producto').value;
@@ -49,6 +50,10 @@ function actualizarTotales() {
     const total = subtotal + envio;
 
     document.getElementById('total').textContent = `$${formatNumber(total)}`;
+}
+
+function actualizarEnvio() {
+    actualizarTotales();
 }
 
 function formatNumber(number) {
