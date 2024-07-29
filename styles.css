@@ -179,3 +179,9 @@ footer {
     height: 40vh;
     margin: 20px 0;
 }
+@media print {
+    .no-print {
+        display: none;
+    }
+}
+
