@@ -1,10 +1,15 @@
+// Función para formatear números con puntos de miles y sin decimales
+function formatearNumero(numero) {
+    return numero.toLocaleString('es-CO', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     const listaProductos = document.getElementById('listaProductos');
     const subtotalElement = document.getElementById('subtotal');
     const totalElement = document.getElementById('total');
     const envioInput = document.getElementById('envioInput');
-    const envioDisplay = document.getElementById('envioDisplay'); // Referencia al nuevo campo
     const actualizarEnvioButton = document.getElementById('actualizarEnvio');
+    const envioDisplay = document.getElementById('envioDisplay');
 
     const productos = []; // Array para almacenar productos
 
@@ -29,7 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
             listaProductos.innerHTML += `
                 <tr>
                     <td>${prod.producto}</td>
-                    <td>${formatearNumero(prod.cantidad)}</td>
+                    <td>${prod.cantidad}</td>
                     <td>${formatearNumero(prod.precio)}</td>
                     <td>${formatearNumero(prod.total)}</td>
                     <td><button onclick="eliminarProducto(${index})">Eliminar</button></td>
@@ -37,8 +42,9 @@ document.addEventListener('DOMContentLoaded', () => {
             `;
         });
 
-        subtotalElement.textContent = formatearNumero(subtotal);
-        actualizarTotal(); // Actualiza el total y el valor de envío
+        const subtotalFormateado = formatearNumero(subtotal);
+        subtotalElement.textContent = `$${subtotalFormateado}`;
+        actualizarTotal();
     }
 
     window.eliminarProducto = function(index) {
@@ -48,14 +54,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function actualizarTotal() {
         const envio = parseFloat(envioInput.value) || 0;
-        const subtotal = parseFloat(subtotalElement.textContent.replace('$', '').replace('.', '')) || 0;
-        envioDisplay.textContent = formatearNumero(envio); // Actualizar el valor mostrado de envío
-        totalElement.textContent = formatearNumero(subtotal + envio);
+        const subtotal = parseFloat(subtotalElement.textContent.replace('$', '').replace(/\./g, '')) || 0;
+        const total = subtotal + envio;
+        envioDisplay.textContent = `$${formatearNumero(envio)}`;
+        totalElement.textContent = `$${formatearNumero(total)}`;
     }
 
     actualizarEnvioButton.addEventListener('click', actualizarTotal);
-
-    function formatearNumero(numero) {
-        return `$${numero.toLocaleString('es-CO', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}`;
-    }
 });
