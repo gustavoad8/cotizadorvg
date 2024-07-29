@@ -18,9 +18,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const cantidad = parseInt(document.getElementById('cantidad').value, 10);
         const precio = parseFloat(document.getElementById('precio').value);
 
-        if (producto && cantidad && precio) {
-            const total = cantidad * precio;
-            productos.push({ producto, cantidad, precio, total: Math.round(total) });
+        if (producto && cantidad && !isNaN(precio)) {
+            const total = Math.round(cantidad * precio);
+            productos.push({ producto, cantidad, precio: Math.round(precio), total });
             actualizarListaProductos();
         }
     });
