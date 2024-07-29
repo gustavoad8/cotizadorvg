@@ -179,3 +179,18 @@ footer {
         display: none;
     }
 }
+.totales p {
+    text-align: right;
+    margin: 5px 0;
+    color: #333;
+}
+
+.totales p#total {
+    font-weight: bold;
+}
+
+.totales p#total::before {
+    content: "Total: ";
+    font-weight: bold;
+}
+
