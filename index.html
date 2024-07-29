@@ -26,7 +26,7 @@
             </div>
         </header>
 
-        <form id="formularioProducto">
+        <form id="formularioCliente">
             <label for="cliente">Cliente:</label>
             <input type="text" id="cliente" name="cliente">
             <label for="email">Email:</label>
@@ -60,8 +60,9 @@
                 <tbody id="listaProductos"></tbody>
             </table>
             <div class="totales">
+                <p>Subtotal: <span id="subtotal">$0</span></p>
                 <div class="no-print">
-                    <p>Envío (10-15 días): <input type="number" id="envioInput" value="0">
+                    <p>Envío: <input type="number" id="envioInput" value="0">
                     <button type="button" id="actualizarEnvio">Actualizar Envío</button></p>
                 </div>
                 <p>Total: <span id="total">$0</span></p>
@@ -88,6 +89,7 @@
                 <p>Kids Decor Colombia - Hecho con amor</p>
                 <p>Cra 2 #45-07, Montería</p>
                 <p>Teléfono: 305 4585404</p>
+            </section>
         </footer>
     </div>
 
