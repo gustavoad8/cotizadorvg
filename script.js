@@ -29,15 +29,15 @@ document.addEventListener('DOMContentLoaded', () => {
             listaProductos.innerHTML += `
                 <tr>
                     <td>${prod.producto}</td>
-                    <td>${prod.cantidad}</td>
-                    <td>${prod.precio.toFixed(2)}</td>
-                    <td>${prod.total.toFixed(2)}</td>
+                    <td>${formatearNumero(prod.cantidad)}</td>
+                    <td>${formatearNumero(prod.precio)}</td>
+                    <td>${formatearNumero(prod.total)}</td>
                     <td><button onclick="eliminarProducto(${index})">Eliminar</button></td>
                 </tr>
             `;
         });
 
-        subtotalElement.textContent = `$${subtotal.toFixed(2)}`;
+        subtotalElement.textContent = formatearNumero(subtotal);
         actualizarTotal(); // Actualiza el total y el valor de envío
     }
 
@@ -48,10 +48,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function actualizarTotal() {
         const envio = parseFloat(envioInput.value) || 0;
-        const subtotal = parseFloat(subtotalElement.textContent.replace('$', '')) || 0;
-        envioDisplay.textContent = `$${envio.toFixed(2)}`; // Actualizar el valor mostrado de envío
-        totalElement.textContent = `$${(subtotal + envio).toFixed(2)}`;
+        const subtotal = parseFloat(subtotalElement.textContent.replace('$', '').replace('.', '')) || 0;
+        envioDisplay.textContent = formatearNumero(envio); // Actualizar el valor mostrado de envío
+        totalElement.textContent = formatearNumero(subtotal + envio);
     }
 
     actualizarEnvioButton.addEventListener('click', actualizarTotal);
+
+    function formatearNumero(numero) {
+        return `$${numero.toLocaleString('es-CO', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}`;
+    }
 });
