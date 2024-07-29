@@ -2,6 +2,22 @@
     .no-print {
         display: none;
     }
+    form {
+        display: none;
+    }
+    button {
+        display: none;
+    }
+    .cotizacion-container {
+        box-shadow: none;
+        margin: 0 auto;
+        padding: 0;
+        width: 100%;
+        max-width: 800px;
+    }
+    th:last-child, td:last-child {
+        display: none;
+    }
 }
 
 body {
@@ -122,6 +138,15 @@ textarea {
     color: #333;
 }
 
+.totales p#total {
+    font-weight: bold;
+}
+
+.totales p#total::before {
+    content: "Total: ";
+    font-weight: bold;
+}
+
 footer {
     text-align: center;
     margin-top: 20px;
@@ -160,37 +185,3 @@ footer {
     font-size: 14px;
     line-height: 1;
 }
-
-@media print {
-    form {
-        display: none;
-    }
-    button {
-        display: none;
-    }
-    .cotizacion-container {
-        box-shadow: none;
-        margin: 0 auto;
-        padding: 0;
-        width: 100%;
-        max-width: 800px;
-    }
-    th:last-child, td:last-child {
-        display: none;
-    }
-}
-.totales p {
-    text-align: right;
-    margin: 5px 0;
-    color: #333;
-}
-
-.totales p#total {
-    font-weight: bold;
-}
-
-.totales p#total::before {
-    content: "Total: ";
-    font-weight: bold;
-}
-
