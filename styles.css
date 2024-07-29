@@ -138,13 +138,12 @@ textarea {
     color: #333;
 }
 
-.totales p#total {
-    font-weight: bold;
+.totales p.total {
+    font-weight: bold; /* Aplica negrilla al texto y al valor */
 }
 
-.totales p#total::before {
-    content: "Total: ";
-    font-weight: bold;
+.totales p.total #total {
+    font-weight: bold; /* Asegura que el valor también esté en negrilla */
 }
 
 footer {
