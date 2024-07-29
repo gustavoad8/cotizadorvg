@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         subtotalElement.textContent = `$${subtotal.toFixed(2)}`;
-        actualizarTotal();
+        actualizarTotal(); // Actualiza el total y el valor de envío
     }
 
     window.eliminarProducto = function(index) {
