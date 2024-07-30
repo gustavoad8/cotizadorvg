@@ -1,67 +1,191 @@
-// Función para formatear números con puntos de miles y sin decimales
-function formatearNumero(numero) {
-    return numero.toLocaleString('es-CO', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
+@media print {
+    .no-print {
+        display: none;
+    }
+    form {
+        display: none;
+    }
+    button {
+        display: none;
+    }
+    .cotizacion-container {
+        box-shadow: none;
+        margin: 0 auto;
+        padding: 0;
+        width: 100%;
+        max-width: 800px;
+    }
+    th:last-child, td:last-child {
+        display: none;
+    }
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-    const listaProductos = document.getElementById('listaProductos');
-    const subtotalElement = document.getElementById('subtotal');
-    const totalElement = document.getElementById('total');
-    const envioInput = document.getElementById('envioInput');
-    const actualizarEnvioButton = document.getElementById('actualizarEnvio');
-    const envioDisplay = document.getElementById('envioDisplay');
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
 
-    const productos = []; // Array para almacenar productos
+.cotizacion-container {
+    width: 80%;
+    margin: 0 auto;
+    background-color: white;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
 
-    document.getElementById('agregarProducto').addEventListener('click', () => {
-        const producto = document.getElementById('producto').value;
-        const cantidad = parseInt(document.getElementById('cantidad').value, 10);
-        const precio = parseFloat(document.getElementById('precio').value);
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 20px;
+    border-bottom: 2px solid #f4f4f4;
+}
 
-        if (producto && cantidad && !isNaN(precio)) {
-            const total = Math.round(cantidad * precio);
-            productos.push({ producto, cantidad, precio: Math.round(precio), total });
-            actualizarListaProductos();
-        }
-    });
+.header-left h1 {
+    margin: 0;
+    font-size: 24px;
+    color: #333;
+}
 
-    function actualizarListaProductos() {
-        listaProductos.innerHTML = ''; // Limpiar tabla
-        let subtotal = 0;
+.header-left h2 {
+    margin: 5px 0;
+    font-size: 20px;
+    color: #777;
+}
 
-        productos.forEach((prod, index) => {
-            subtotal += prod.total;
-            listaProductos.innerHTML += `
-                <tr>
-                    <td>${prod.producto}</td>
-                    <td>${prod.cantidad}</td>
-                    <td>${formatearNumero(prod.precio)}</td>
-                    <td>${formatearNumero(prod.total)}</td>
-                    <td><button onclick="eliminarProducto(${index})">Eliminar</button></td>
-                </tr>
-            `;
-        });
+.header-left p {
+    margin: 2px 0;
+    color: #555;
+}
 
-        const subtotalFormateado = formatearNumero(subtotal);
-        subtotalElement.textContent = `$${subtotalFormateado}`;
-        actualizarTotal();
-    }
+.logo {
+    width: 100px;
+    height: auto;
+}
 
-    window.eliminarProducto = function(index) {
-        productos.splice(index, 1);
-        actualizarListaProductos();
-    };
+section {
+    margin: 20px 0;
+}
 
-    function actualizarTotal() {
-        const envio = parseInt(envioInput.value, 10) || 0;
-        const subtotal = parseInt(subtotalElement.textContent.replace('$', '').replace(/\./g, ''), 10) || 0;
-        const total = subtotal + envio;
-        envioDisplay.textContent = `$${formatearNumero(envio)}`;
-        totalElement.textContent = `$${formatearNumero(total)}`;
-    }
+form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
 
-    actualizarEnvioButton.addEventListener('click', actualizarTotal);
-    @media print {
+form label {
+    flex: 1 1 100px;
+}
+
+form input {
+    flex: 2 1 200px;
+    padding: 5px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+button {
+    padding: 10px 20px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #218838;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+table, th, td {
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+th, td {
+    padding: 10px;
+}
+
+button.eliminar {
+    background-color: #dc3545;
+}
+
+button.eliminar:hover {
+    background-color: #c82333;
+}
+
+textarea {
+    width: 40%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-top: 10px;
+}
+
+.totales p {
+    text-align: right;
+    margin: 5px 0;
+    color: #333;
+}
+
+.totales p.total {
+    font-weight: bold; /* Aplica negrilla al texto y al valor */
+}
+
+.totales p.total #total {
+    font-weight: bold; /* Asegura que el valor también esté en negrilla */
+}
+
+footer {
+    text-align: center;
+    margin-top: 20px;
+    padding: 10px 0;
+    background-color: #f0f0f0;
+    line-height: 1;
+}
+
+.info-empresa {
+    line-height: 1;
+}
+
+.info-empresa p {
+    margin: 5px 0;
+}
+
+.franja-color {
+    width: 100%;
+    height: 20px;
+    background-color: #d1f0f0;
+    margin: 20px 0;
+}
+
+.datos-bancarios {
+    margin: 20px 0;
+}
+
+.datos-bancarios h3 {
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.datos-bancarios p {
+    margin: 2px 0;
+    color: #555;
+    font-size: 14px;
+    line-height: 1;
+}
+
+@media print {
     .no-print {
         display: none;
     }
@@ -84,9 +208,8 @@ document.addEventListener('DOMContentLoaded', () => {
     /* Asegúrate de ocultar también los elementos de entrada y los botones adicionales en la impresión */
     #formularioCliente,
     #formularioProducto,
-    .observaciones {
+    .observaciones,
+    .datos-bancarios h3 {
         display: none;
     }
 }
-
-});
