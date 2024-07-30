@@ -104,6 +104,8 @@
             const nombreCliente = document.getElementById('nombreCliente');
             const emailCliente = document.getElementById('emailCliente');
             const telefonoCliente = document.getElementById('telefonoCliente');
+            const fecha = document.getElementById('fecha');
+            const consecutivo = document.getElementById('consecutivo');
 
             const formularioCliente = document.getElementById('formularioCliente');
             const listaProductos = document.getElementById('listaProductos');
@@ -113,6 +115,17 @@
             const actualizarEnvioButton = document.getElementById('actualizarEnvio');
             const envioDisplay = document.getElementById('envioDisplay');
             const productos = [];
+
+            // Mostrar la fecha actual
+            const fechaActual = new Date();
+            const dia = fechaActual.getDate();
+            const mes = fechaActual.getMonth() + 1; // Los meses comienzan en 0
+            const anio = fechaActual.getFullYear();
+            fecha.textContent = `${dia}/${mes}/${anio}`;
+
+            // Generar un número aleatorio para el consecutivo
+            const numeroConsecutivo = Math.floor(Math.random() * (500 - 200 + 1)) + 200;
+            consecutivo.textContent = numeroConsecutivo;
 
             formularioCliente.addEventListener('input', () => {
                 nombreCliente.textContent = document.getElementById('cliente').value;
