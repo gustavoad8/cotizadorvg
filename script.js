@@ -61,4 +61,32 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     actualizarEnvioButton.addEventListener('click', actualizarTotal);
+ @media print {
+    .no-print {
+        display: none;
+    }
+    form {
+        display: none;
+    }
+    button {
+        display: none;
+    }
+    .cotizacion-container {
+        box-shadow: none;
+        margin: 0 auto;
+        padding: 0;
+        width: 100%;
+        max-width: 800px;
+    }
+    th:last-child, td:last-child {
+        display: none;
+    }
+    /* Asegúrate de ocultar también los elementos de entrada y los botones adicionales en la impresión */
+    #formularioCliente,
+    #formularioProducto,
+    .observaciones {
+        display: none;
+    }
+}
+
 });
