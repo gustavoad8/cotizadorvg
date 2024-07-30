@@ -85,7 +85,7 @@ document.addEventListener('DOMContentLoaded', () => {
     #formularioCliente,
     #formularioProducto,
     .observaciones {
-        display: none;
+        display: true;
     }
 }
 
