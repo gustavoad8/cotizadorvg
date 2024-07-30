@@ -1,32 +1,9 @@
+// Función para formatear números con puntos de miles y sin decimales
+function formatearNumero(numero) {
+    return numero.toLocaleString('es-CO', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
+}
+
 document.addEventListener('DOMContentLoaded', () => {
-    const nombreCliente = document.getElementById('nombreCliente');
-    const emailCliente = document.getElementById('emailCliente');
-    const telefonoCliente = document.getElementById('telefonoCliente');
-    const fechaElement = document.getElementById('fecha');
-    const consecutivoElement = document.getElementById('consecutivo');
-
-    const formularioCliente = document.getElementById('formularioCliente');
-
-    formularioCliente.addEventListener('input', () => {
-        nombreCliente.textContent = document.getElementById('cliente').value;
-        emailCliente.textContent = document.getElementById('email').value;
-        telefonoCliente.textContent = document.getElementById('telefono').value;
-    });
-
-    // Set current date
-    const today = new Date();
-    const formattedDate = today.toLocaleDateString('es-CO', { year: 'numeric', month: '2-digit', day: '2-digit' });
-    fechaElement.textContent = formattedDate;
-
-    // Set random consecutive number
-    const randomConsecutive = Math.floor(Math.random() * (500 - 200 + 1)) + 200;
-    consecutivoElement.textContent = randomConsecutive;
-
-    // Función para formatear números con puntos de miles y sin decimales
-    function formatearNumero(numero) {
-        return numero.toLocaleString('es-CO', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
-    }
-
     const listaProductos = document.getElementById('listaProductos');
     const subtotalElement = document.getElementById('subtotal');
     const totalElement = document.getElementById('total');
@@ -84,26 +61,32 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     actualizarEnvioButton.addEventListener('click', actualizarTotal);
+    @media print {
+    .no-print {
+        display: none;
+    }
+    form {
+        display: none;
+    }
+    button {
+        display: none;
+    }
+    .cotizacion-container {
+        box-shadow: none;
+        margin: 0 auto;
+        padding: 0;
+        width: 100%;
+        max-width: 800px;
+    }
+    th:last-child, td:last-child {
+        display: none;
+    }
+    /* Asegúrate de ocultar también los elementos de entrada y los botones adicionales en la impresión */
+    #formularioCliente,
+    #formularioProducto,
+    .observaciones {
+        display: none;
+    }
+}
 
-    // Función para generar el PDF
-    document.getElementById('generarPDF').addEventListener('click', () => {
-        const { jsPDF } = window.jspdf;
-        const pdf = new jsPDF();
-
-        // Obtener el contenido del contenedor de cotización
-        const cotizacionElement = document.getElementById('cotizacionContainer');
-
-        // Estilo personalizado para el texto
-        pdf.setFontSize(12);
-        pdf.text(20, 10, 'Kids Decor Colombia - Cotización');
-
-        // Convertir el HTML en PDF
-        pdf.html(cotizacionElement, {
-            callback: (doc) => {
-                doc.save('cotizacion.pdf');
-            },
-            x: 10,
-            y: 20
-        });
-    });
 });
