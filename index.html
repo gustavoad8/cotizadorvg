@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="cotizacion-container" id="cotizacionContainer">
+    <div class="cotizacion-container">
         <header>
             <div class="header-left">
                 <h1>Kids Decor Colombia</h1>
@@ -61,7 +61,7 @@
             </table>
             <div class="totales">
                 <p>Subtotal: <span id="subtotal">$0</span></p>
-                <p>Envío: <span id="envioDisplay">$0</span></p>
+                <p>Envío: <span id="envioDisplay">$0</span></p> <!-- Nueva línea para mostrar el valor de envío -->
                 <div class="no-print">
                     <p>Ingresar Envío: <input type="number" id="envioInput" value="0">
                     <button type="button" id="actualizarEnvio">Actualizar Envío</button></p>
@@ -93,12 +93,10 @@
             </section>
         </footer>
 
-        <!-- Botón para generar PDF -->
         <button id="generarPDF">Generar PDF</button>
     </div>
 
     <!-- Aquí va tu script -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
