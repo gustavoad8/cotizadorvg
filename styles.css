@@ -116,6 +116,14 @@ textarea {
     color: #333;
 }
 
+.totales p.total {
+    font-weight: bold; /* Aplica negrilla al texto y al valor */
+}
+
+.totales p.total #total {
+    font-weight: bold; /* Asegura que el valor también esté en negrilla */
+}
+
 footer {
     text-align: center;
     margin-top: 20px;
@@ -156,6 +164,9 @@ footer {
 }
 
 @media print {
+    .no-print {
+        display: none;
+    }
     form {
         display: none;
     }
@@ -172,10 +183,11 @@ footer {
     th:last-child, td:last-child {
         display: none;
     }
-}
-
-.color-section {
-    background-color: #d1f0f0;
-    height: 40vh;
-    margin: 20px 0;
+    /* Asegúrate de ocultar también los elementos de entrada y los botones adicionales en la impresión */
+    #formularioCliente,
+    #formularioProducto,
+    .observaciones,
+    .datos-bancarios h3 {
+        display: none;
+    }
 }
