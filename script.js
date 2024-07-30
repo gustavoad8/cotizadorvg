@@ -1,35 +1,44 @@
 document.addEventListener('DOMContentLoaded', () => {
+    const { jsPDF } = window.jspdf;
     const nombreCliente = document.getElementById('nombreCliente');
     const emailCliente = document.getElementById('emailCliente');
     const telefonoCliente = document.getElementById('telefonoCliente');
-    const fecha = document.getElementById('fecha');
-    const consecutivo = document.getElementById('consecutivo');
-    const formularioCliente = document.getElementById('formularioCliente');
-    const formularioProducto = document.getElementById('formularioProducto');
+    const fechaElement = document.getElementById('fecha');
+    const consecutivoElement = document.getElementById('consecutivo');
     const listaProductos = document.getElementById('listaProductos');
     const subtotalElement = document.getElementById('subtotal');
     const totalElement = document.getElementById('total');
     const envioInput = document.getElementById('envioInput');
     const actualizarEnvioButton = document.getElementById('actualizarEnvio');
     const envioDisplay = document.getElementById('envioDisplay');
-    const observaciones = document.getElementById('observaciones');
     const generarPDFButton = document.getElementById('generarPDF');
+    const observaciones = document.getElementById('observaciones');
 
-    const productos = []; // Array para almacenar productos
+    // Array para almacenar productos
+    const productos = [];
 
     // Establecer fecha actual
-    const today = new Date();
-    fecha.textContent = today.toLocaleDateString('es-CO');
-    
-    // Establecer consecutivo aleatorio
-    consecutivo.textContent = Math.floor(Math.random() * (500 - 200 + 1)) + 200;
+    const fechaActual = new Date().toLocaleDateString('es-CO');
+    fechaElement.textContent = fechaActual;
 
+    // Establecer número consecutivo aleatorio
+    const consecutivo = Math.floor(Math.random() * (500 - 200 + 1)) + 200;
+    consecutivoElement.textContent = consecutivo;
+
+    // Actualizar datos del cliente
+    const formularioCliente = document.getElementById('formularioCliente');
     formularioCliente.addEventListener('input', () => {
         nombreCliente.textContent = document.getElementById('cliente').value;
         emailCliente.textContent = document.getElementById('email').value;
         telefonoCliente.textContent = document.getElementById('telefono').value;
     });
 
+    // Función para formatear números con puntos de miles y sin decimales
+    function formatearNumero(numero) {
+        return numero.toLocaleString('es-CO', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
+    }
+
+    // Agregar producto a la lista
     document.getElementById('agregarProducto').addEventListener('click', () => {
         const producto = document.getElementById('producto').value;
         const cantidad = parseInt(document.getElementById('cantidad').value, 10);
@@ -42,6 +51,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    // Actualizar lista de productos
     function actualizarListaProductos() {
         listaProductos.innerHTML = ''; // Limpiar tabla
         let subtotal = 0;
@@ -64,11 +74,13 @@ document.addEventListener('DOMContentLoaded', () => {
         actualizarTotal();
     }
 
+    // Eliminar producto de la lista
     window.eliminarProducto = function(index) {
         productos.splice(index, 1);
         actualizarListaProductos();
     };
 
+    // Actualizar total
     function actualizarTotal() {
         const envio = parseInt(envioInput.value, 10) || 0;
         const subtotal = parseInt(subtotalElement.textContent.replace('$', '').replace(/\./g, ''), 10) || 0;
@@ -79,49 +91,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
     actualizarEnvioButton.addEventListener('click', actualizarTotal);
 
-    function formatearNumero(numero) {
-        return numero.toLocaleString('es-CO', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
-    }
-
+    // Generar PDF
     generarPDFButton.addEventListener('click', () => {
-        const doc = new jsPDF();
+        const pdf = new jsPDF();
+        const cotizacionElement = document.getElementById('cotizacionContainer');
 
-        doc.setFontSize(12);
-        doc.text(20, 20, 'Kids Decor Colombia');
-        doc.text(20, 30, `NIT: 1067854425-6`);
-        doc.text(20, 40, 'Cotización');
-        doc.text(20, 50, `Fecha: ${fecha.textContent}`);
-        doc.text(20, 60, `Consecutivo: ${consecutivo.textContent}`);
-        doc.text(20, 70, `Cliente: ${nombreCliente.textContent}`);
-        doc.text(20, 80, `Email: ${emailCliente.textContent}`);
-        doc.text(20, 90, `Teléfono: ${telefonoCliente.textContent}`);
-
-        let y = 110;
-        doc.text(20, y, 'Productos:');
-        y += 10;
-
-        doc.autoTable({
-            startY: y,
-            head: [['Descripción', 'Cantidad', 'Precio', 'Total']],
-            body: productos.map(p => [p.producto, p.cantidad, `$${formatearNumero(p.precio)}`, `$${formatearNumero(p.total)}`]),
+        // Establecer el contenido del PDF
+        pdf.html(cotizacionElement, {
+            callback: (doc) => {
+                doc.save('cotizacion.pdf');
+            },
+            x: 10,
+            y: 10
         });
-
-        y = doc.autoTable.previous.finalY + 10;
-        doc.text(20, y, `Subtotal: $${subtotalElement.textContent}`);
-        doc.text(20, y + 10, `Envío: $${envioDisplay.textContent}`);
-        doc.text(20, y + 20, `Total: $${totalElement.textContent}`);
-
-        y += 40;
-        doc.text(20, y, 'Observaciones:');
-        doc.text(20, y + 10, observaciones.value);
-
-        y += 30;
-        doc.text(20, y, 'Datos Bancarios:');
-        doc.text(20, y + 10, 'Gustavo Alberto Acosta Diaz');
-        doc.text(20, y + 20, 'C.C. 1.067.854.425');
-        doc.text(20, y + 30, 'Bancolombia - Cta. Ahorros #09112958093');
-        doc.text(20, y + 40, 'Davivienda - Cta. Corriente #156960000388');
-
-        doc.save('cotizacion.pdf');
     });
 });
