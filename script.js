@@ -1,23 +1,3 @@
-    <!-- Aquí va tu script -->
-    <script src="script.js"></script>
-    <script>
-    document.addEventListener('DOMContentLoaded', () => {
-        const nombreCliente = document.getElementById('nombreCliente');
-        const emailCliente = document.getElementById('emailCliente');
-        const telefonoCliente = document.getElementById('telefonoCliente');
-
-        const formularioCliente = document.getElementById('formularioCliente');
-        
-        formularioCliente.addEventListener('input', () => {
-            nombreCliente.textContent = document.getElementById('cliente').value;
-            emailCliente.textContent = document.getElementById('email').value;
-            telefonoCliente.textContent = document.getElementById('telefono').value;
-        });
-    });
-    </script>
-</body>
-</html>
-
 // Función para formatear números con puntos de miles y sin decimales
 function formatearNumero(numero) {
     return numero.toLocaleString('es-CO', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
@@ -51,7 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         productos.forEach((prod, index) => {
             subtotal += prod.total;
-            listaProductos.innerHTML += 
+            listaProductos.innerHTML += `
                 <tr>
                     <td>${prod.producto}</td>
                     <td>${prod.cantidad}</td>
@@ -59,11 +39,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     <td>${formatearNumero(prod.total)}</td>
                     <td><button onclick="eliminarProducto(${index})">Eliminar</button></td>
                 </tr>
-            ;
+            `;
         });
 
         const subtotalFormateado = formatearNumero(subtotal);
-        subtotalElement.textContent = $${subtotalFormateado};
+        subtotalElement.textContent = `$${subtotalFormateado}`;
         actualizarTotal();
     }
 
@@ -76,37 +56,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const envio = parseInt(envioInput.value, 10) || 0;
         const subtotal = parseInt(subtotalElement.textContent.replace('$', '').replace(/\./g, ''), 10) || 0;
         const total = subtotal + envio;
-        envioDisplay.textContent = $${formatearNumero(envio)};
-        totalElement.textContent = $${formatearNumero(total)};
+        envioDisplay.textContent = `$${formatearNumero(envio)}`;
+        totalElement.textContent = `$${formatearNumero(total)}`;
     }
 
     actualizarEnvioButton.addEventListener('click', actualizarTotal);
-    @media print {
-    .no-print {
-        display: none;
-    }
-    form {
-        display: none;
-    }
-    button {
-        display: none;
-    }
-    .cotizacion-container {
-        box-shadow: none;
-        margin: 0 auto;
-        padding: 0;
-        width: 100%;
-        max-width: 800px;
-    }
-    th:last-child, td:last-child {
-        display: none;
-    }
-    /* Asegúrate de ocultar también los elementos de entrada y los botones adicionales en la impresión */
-    #formularioCliente,
-    #formularioProducto,
-    .observaciones {
-        display: none;
-    }
-}
-
 });
