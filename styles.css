@@ -1,4 +1,25 @@
-/* General styles */
+@media print {
+    .no-print {
+        display: none;
+    }
+    form {
+        display: none;
+    }
+    button {
+        display: none;
+    }
+    .cotizacion-container {
+        box-shadow: none;
+        margin: 0 auto;
+        padding: 0;
+        width: 100%;
+        max-width: 800px;
+    }
+    th:last-child, td:last-child {
+        display: none;
+    }
+}
+
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -164,7 +185,6 @@ footer {
     line-height: 1;
 }
 
-/* Media queries for print */
 @media print {
     .no-print {
         display: none;
@@ -190,9 +210,6 @@ footer {
     #formularioProducto,
     .observaciones,
     .datos-bancarios h3 {
-        display: block; /* Asegura que estos elementos sean visibles en la impresión */
-    }
-    .observaciones h3 {
-        display: block; /* Asegura que el título "Observaciones" sea visible en la impresión */
+        display: none;
     }
 }
