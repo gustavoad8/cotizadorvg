@@ -1,9 +1,17 @@
-// Función para formatear números con puntos de miles y sin decimales
-function formatearNumero(numero) {
-    return numero.toLocaleString('es-CO', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
-}
-
 document.addEventListener('DOMContentLoaded', () => {
+    const nombreCliente = document.getElementById('nombreCliente');
+    const emailCliente = document.getElementById('emailCliente');
+    const telefonoCliente = document.getElementById('telefonoCliente');
+    
+    const formularioCliente = document.getElementById('formularioCliente');
+    const formularioProducto = document.getElementById('formularioProducto');
+
+    formularioCliente.addEventListener('input', () => {
+        nombreCliente.textContent = document.getElementById('cliente').value;
+        emailCliente.textContent = document.getElementById('email').value;
+        telefonoCliente.textContent = document.getElementById('telefono').value;
+    });
+
     const listaProductos = document.getElementById('listaProductos');
     const subtotalElement = document.getElementById('subtotal');
     const totalElement = document.getElementById('total');
@@ -11,7 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const actualizarEnvioButton = document.getElementById('actualizarEnvio');
     const envioDisplay = document.getElementById('envioDisplay');
 
-    const productos = []; // Array para almacenar productos
+    let productos = []; // Array para almacenar productos
 
     document.getElementById('agregarProducto').addEventListener('click', () => {
         const producto = document.getElementById('producto').value;
@@ -22,6 +30,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const total = Math.round(cantidad * precio);
             productos.push({ producto, cantidad, precio: Math.round(precio), total });
             actualizarListaProductos();
+        } else {
+            alert('Por favor ingresa todos los valores correctamente.');
         }
     });
 
@@ -37,7 +47,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <td>${prod.cantidad}</td>
                     <td>${formatearNumero(prod.precio)}</td>
                     <td>${formatearNumero(prod.total)}</td>
-                    <td><button onclick="eliminarProducto(${index})">Eliminar</button></td>
+                    <td><button class="eliminar" onclick="eliminarProducto(${index})">Eliminar</button></td>
                 </tr>
             `;
         });
@@ -47,11 +57,6 @@ document.addEventListener('DOMContentLoaded', () => {
         actualizarTotal();
     }
 
-    window.eliminarProducto = function(index) {
-        productos.splice(index, 1);
-        actualizarListaProductos();
-    };
-
     function actualizarTotal() {
         const envio = parseInt(envioInput.value, 10) || 0;
         const subtotal = parseInt(subtotalElement.textContent.replace('$', '').replace(/\./g, ''), 10) || 0;
@@ -60,33 +65,15 @@ document.addEventListener('DOMContentLoaded', () => {
         totalElement.textContent = `$${formatearNumero(total)}`;
     }
 
-    actualizarEnvioButton.addEventListener('click', actualizarTotal);
- @media print {
-    .no-print {
-        display: none;
-    }
-    form {
-        display: none;
-    }
-    button {
-        display: none;
-    }
-    .cotizacion-container {
-        box-shadow: none;
-        margin: 0 auto;
-        padding: 0;
-        width: 100%;
-        max-width: 800px;
-    }
-    th:last-child, td:last-child {
-        display: none;
-    }
-    /* Asegúrate de ocultar también los elementos de entrada y los botones adicionales en la impresión */
-    #formularioCliente,
-    #formularioProducto,
-    .observaciones {
-        display: none;
-    }
-}
+    window.eliminarProducto = function(index) {
+        productos.splice(index, 1);
+        actualizarListaProductos();
+    };
 
+    actualizarEnvioButton.addEventListener('click', actualizarTotal);
+
+    // Función para formatear números con puntos de miles y sin decimales
+    function formatearNumero(numero) {
+        return numero.toLocaleString('es-CO', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
+    }
 });
