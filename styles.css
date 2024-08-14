@@ -191,3 +191,23 @@ footer {
         display: none;
     }
 }
+/* Asegúrate de que la sección de observaciones sea visible en la vista normal */
+.observaciones {
+    display: block; /* Asegúrate de que la sección sea visible */
+}
+
+textarea {
+    width: 100%; /* Ajusta el ancho del textarea si es necesario */
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-top: 10px;
+    box-sizing: border-box; /* Asegúrate de que el padding no afecte el ancho total */
+}
+
+/* La regla de impresión seguirá ocultando la sección de observaciones durante la impresión */
+@media print {
+    .observaciones {
+        display: none;
+    }
+}
