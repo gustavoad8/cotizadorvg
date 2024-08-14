@@ -186,7 +186,7 @@ footer {
     /* Asegúrate de ocultar también los elementos de entrada y los botones adicionales en la impresión */
     #formularioCliente,
     #formularioProducto,
-    .datos-bancarios h3 {
+    {
         display: none;
     }
 }
