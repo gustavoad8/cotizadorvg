@@ -10,11 +10,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const totalElement = document.getElementById('total');
     const envioInput = document.getElementById('envioInput');
     const actualizarEnvioButton = document.getElementById('actualizarEnvio');
-    const envioDisplay = document.getElementById('envioDisplay');
     const agregarProductoButton = document.getElementById('agregarProducto');
 
     const productos = []; // Array para almacenar productos
-    let consecutivo = 1; // Iniciar el consecutivo
+    let consecutivo = Math.floor(Math.random() * (1000 - 200 + 1)) + 200; // Consecutivo aleatorio entre 200 y 1000
 
     // Función para formatear números con puntos de miles y sin decimales
     function formatearNumero(numero) {
@@ -41,6 +40,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const total = Math.round(cantidad * precio);
             productos.push({ producto, cantidad, precio: Math.round(precio), total });
             actualizarListaProductos();
+        } else {
+            alert('Por favor, complete todos los campos del producto.');
         }
     });
 
@@ -56,7 +57,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <td>${prod.cantidad}</td>
                     <td>${formatearNumero(prod.precio)}</td>
                     <td>${formatearNumero(prod.total)}</td>
-                    <td><button onclick="eliminarProducto(${index})">Eliminar</button></td>
+                    <td><button type="button" onclick="eliminarProducto(${index})">Eliminar</button></td>
                 </tr>
             `;
         });
